@@ -1,0 +1,120 @@
+# Decap CMS ayarları — panel: https://SİTE-ADRESİN/admin/
+# Yazılar icerik/blog/*.json dosyalarına kaydedilir; Netlify her kayıttan sonra
+# "python3 kaynak/build.py" ile siteyi yeniden üretir (bkz. netlify.toml).
+
+backend:
+  name: github
+  repo: GITHUB_KULLANICI_ADIN/zeynep-portfolyo   # DÜZENLE: kendi GitHub depo adın
+  branch: main
+  commit_messages:
+    create: "Yeni yazı: {{slug}}"
+    update: "Yazı güncellendi: {{slug}}"
+    delete: "Yazı silindi: {{slug}}"
+    uploadMedia: "Görsel yüklendi: {{path}}"
+
+# Bilgisayarda denemek için: proje klasöründe "npx decap-server" çalıştır, siteyi
+# yerel sunucuda açıp /admin/ adresine git (GitHub girişi gerekmez).
+local_backend: true
+
+locale: tr
+site_url: https://zeynep-portfolyo.netlify.app   # DÜZENLE: yayındaki adres
+display_url: https://zeynep-portfolyo.netlify.app
+logo_url: ../assets/img/favicon.svg
+
+media_folder: site/assets/img/blog
+public_folder: /assets/img/blog
+
+slug:
+  encoding: ascii
+  clean_accents: true
+  sanitize_replacement: "-"
+
+collections:
+  - name: blog
+    label: Blog yazıları
+    label_singular: Blog yazısı
+    description: Sitedeki blog yazıları. Her yazının Türkçe ve İngilizce hâli var; kategoriler blog sayfasındaki filtrelerde görünür.
+    folder: icerik/blog
+    format: json
+    extension: json
+    create: true
+    delete: true
+    slug: "{{title_tr}}"
+    identifier_field: title_tr
+    summary: "{{title_tr}} · {{date}}"
+    sortable_fields: [date, title_tr]
+    view_groups:
+      - { label: Kategori, field: categories }
+    fields:
+      - { label: "Başlık (TR)", name: title_tr, widget: string, hint: "Bir kelimeyi *yıldız* içine alırsan başlıkta renkli vurgulanır. Örn: JavaScript ile *oyun döngüsü*" }
+      - { label: "Başlık (EN)", name: title_en, widget: string, required: false }
+      - { label: "Tarih", name: date, widget: datetime, format: "YYYY-MM-DD", date_format: "DD.MM.YYYY", time_format: false }
+      - label: "Kategoriler"
+        name: categories
+        widget: select
+        multiple: true
+        min: 1
+        options:
+          - { label: "Web Geliştirme", value: web }
+          - { label: "JavaScript", value: javascript }
+          - { label: "Python", value: python }
+          - { label: "C#", value: csharp }
+          - { label: "Oyun Programlama", value: oyun }
+          - { label: "Yapay Zekâ", value: ai }
+          - { label: "Kişisel", value: kisisel }
+      - { label: "Etiketler", name: tags, widget: list, required: false, hint: "Her satıra bir etiket. İki dilli etiket için: oyun geliştirme | game dev" }
+      - { label: "Kapak görseli", name: cover, widget: image, required: false, choose_url: false }
+      - { label: "Kapak görseli açıklaması", name: cover_alt, widget: string, required: false }
+      - { label: "Okuma süresi (dk)", name: reading_min, widget: number, value_type: int, min: 1, default: 5, required: false }
+      - { label: "Kısa açıklama", name: description, widget: text, required: false, hint: "Arama motorları ve paylaşım önizlemesi için bir cümle." }
+      - { label: "Yazı (TR)", name: body_tr, widget: markdown, hint: "İpucu kutusu için: > **İpucu:** metin. Kod örneği için kodu ``` satırları arasına yaz." }
+      - { label: "Yazı (EN)", name: body_en, widget: markdown, required: false, hint: "Boş bırakılırsa İngilizce sayfada Türkçe metin gösterilir." }
+
+  - name: projeler
+    label: Projeler
+    label_singular: Proje
+    description: Projeler sayfasındaki kartlar, ana sayfadaki kaydırmalı liste ve her projenin detay sayfası buradan üretilir.
+    folder: icerik/projeler
+    format: json
+    extension: json
+    create: true
+    delete: true
+    slug: "{{title_tr}}"
+    identifier_field: title_tr
+    summary: "{{order}}. {{title_tr}} · {{course_tr}} {{year}}"
+    sortable_fields: [order, year, title_tr]
+    media_folder: /site/assets/img/projeler
+    public_folder: /assets/img/projeler
+    fields:
+      - { label: "Başlık (TR)", name: title_tr, widget: string }
+      - { label: "Başlık (EN)", name: title_en, widget: string, required: false }
+      - { label: "Tür / Ders (TR)", name: course_tr, widget: string, hint: "Örn: Yaratıcı web uygulaması ya da dersin adı" }
+      - { label: "Tür / Ders (EN)", name: course_en, widget: string, required: false }
+      - { label: "Yıl", name: year, widget: number, value_type: int, min: 2000, max: 2100 }
+      - { label: "Sıra", name: order, widget: number, value_type: int, default: 1, hint: "Küçük sayı önce gösterilir." }
+      - { label: "Ana sayfada göster", name: featured, widget: boolean, default: true }
+      - { label: "Kısa anlatım (TR)", name: summary_tr, widget: text, hint: "Projeler sayfasındaki kartta ve detay sayfasının başında görünür (2-3 cümle)." }
+      - { label: "Kısa anlatım (EN)", name: summary_en, widget: text, required: false }
+      - { label: "Tek cümle (TR)", name: short_tr, widget: string, hint: "Ana sayfadaki kartta görünür." }
+      - { label: "Tek cümle (EN)", name: short_en, widget: string, required: false }
+      - { label: "Araçlar", name: tools, widget: list, required: false, hint: "Her satıra bir teknoloji, örn: Python, Flask, PostgreSQL. Boş bırakılırsa gösterilmez." }
+      - { label: "Kapak görseli", name: cover, widget: image, choose_url: false }
+      - { label: "Kapak görseli açıklaması", name: cover_alt, widget: string, required: false }
+      - { label: "Önizleme videosu (.mp4, isteğe bağlı)", name: video, widget: file, required: false, choose_url: false, hint: "5-10 saniyelik, sessiz, küçük (en fazla ~8 MB) bir döngü. Kartın üstüne gelince oynar." }
+      - { label: "YouTube / Vimeo bağlantısı (isteğe bağlı)", name: video_url, widget: string, required: false, hint: "Detay sayfasında tam video olarak gömülür." }
+      - { label: "Detay görseli (isteğe bağlı)", name: detail, widget: image, required: false, choose_url: false, hint: "“Projeyi incele” sayfasında kapağın yerine gösterilir (renk filtresi uygulanmaz). Boşsa kapak kullanılır." }
+      - { label: "Detay görseli açıklaması", name: detail_alt, widget: string, required: false }
+      - { label: "Canlı site / GitHub bağlantısı (isteğe bağlı)", name: link, widget: string, required: false, hint: "Örn: https://kodkoc.onrender.com — detay sayfasında “Siteyi aç” düğmesi olur." }
+      - { label: "Durum (TR, isteğe bağlı)", name: status_tr, widget: string, required: false, hint: "Yayında olmayan projeler için, örn: Geliştiriliyor. Boşsa rozet çıkmaz." }
+      - { label: "Durum (EN)", name: status_en, widget: string, required: false, hint: "Örn: In progress" }
+      - label: "Galeri"
+        name: gallery
+        widget: list
+        required: false
+        summary: "{{fields.caption}}"
+        fields:
+          - { label: "Görsel", name: image, widget: image, choose_url: false }
+          - { label: "Açıklama", name: caption, widget: string, required: false, hint: "İki dilli için: Eskiz | Sketch" }
+      - { label: "Süreç (TR)", name: body_tr, widget: markdown, required: false, hint: "Fikir, süreç, sonuç. İpucu kutusu için: > **İpucu:** metin" }
+      - { label: "Süreç (EN)", name: body_en, widget: markdown, required: false }
+
