@@ -4,7 +4,7 @@
 
 backend:
   name: github
-  repo: GITHUB_KULLANICI_ADIN/zeynep-portfolyo   # DÜZENLE: kendi GitHub depo adın
+  repo: zynp20071-ux/zynp20071-ux.github.io   # DÜZENLE: depo adı farklıysa değiştir
   branch: main
   commit_messages:
     create: "Yeni yazı: {{slug}}"
@@ -17,8 +17,8 @@ backend:
 local_backend: true
 
 locale: tr
-site_url: https://zeynep-portfolyo.netlify.app   # DÜZENLE: yayındaki adres
-display_url: https://zeynep-portfolyo.netlify.app
+site_url: https://zynp20071-ux.github.io
+display_url: https://zynp20071-ux.github.io
 logo_url: ../assets/img/favicon.svg
 
 media_folder: site/assets/img/blog

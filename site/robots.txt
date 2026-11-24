@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 Disallow: /admin/
-Sitemap: https://zeynep-portfolyo.netlify.app/sitemap.xml
+Sitemap: https://zynp20071-ux.github.io/sitemap.xml

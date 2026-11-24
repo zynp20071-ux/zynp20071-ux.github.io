@@ -326,9 +326,16 @@
   if (form) {
     const status = $('.form-status', form);
     const msg = (a, b, cls) => { status.className = 'form-status ' + cls; status.innerHTML = tr(a, b); };
+    addEventListener('pageshow', () => { $('button[type=submit]', form).disabled = false; status.textContent = ''; });
     form.addEventListener('submit', async e => {
+      if (!form.checkValidity()) { e.preventDefault(); form.reportValidity(); return; }
+      /* Harici servis (FormSubmit): normal gönderim, servis _next ile teşekkür sayfasına döndürür */
+      if (/^https?:\/\//.test(form.getAttribute('action') || '')) {
+        $('button[type=submit]', form).disabled = true;
+        msg('Gönderiliyor…', 'Sending…', '');
+        return;
+      }
       e.preventDefault();
-      if (!form.checkValidity()) { form.reportValidity(); return; }
       const btn = $('button[type=submit]', form); btn.disabled = true;
       msg('Gönderiliyor…', 'Sending…', '');
       try {

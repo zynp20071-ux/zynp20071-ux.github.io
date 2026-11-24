@@ -8,19 +8,19 @@
 <meta name="theme-color" content="#ff48b0">
 <meta property="og:title" content="İletişim — Zeynep Gül Şahin">
 <meta property="og:description" content="Adres, e-posta, iletişim formu ve harita.">
-<link rel="canonical" href="https://zeynep-portfolyo.netlify.app/iletisim.html">
+<link rel="canonical" href="https://zynp20071-ux.github.io/iletisim.html">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://zeynep-portfolyo.netlify.app/iletisim.html">
+<meta property="og:url" content="https://zynp20071-ux.github.io/iletisim.html">
 <meta property="og:site_name" content="Zeynep Gül Şahin">
 <meta property="og:locale" content="tr_TR">
 <meta property="og:locale:alternate" content="en_US">
-<meta property="og:image" content="https://zeynep-portfolyo.netlify.app/assets/img/og.png">
+<meta property="og:image" content="https://zynp20071-ux.github.io/assets/img/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="İletişim — Zeynep Gül Şahin">
 <meta name="twitter:description" content="Adres, e-posta, iletişim formu ve harita.">
-<meta name="twitter:image" content="https://zeynep-portfolyo.netlify.app/assets/img/og.png">
+<meta name="twitter:image" content="https://zynp20071-ux.github.io/assets/img/og.png">
 <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -79,10 +79,13 @@
     <div><dt><span lang="tr">Çalışma saatleri</span><span lang="en">Hours</span></dt><dd><span lang="tr">Hafta içi 10:00 – 18:00</span><span lang="en">Weekdays 10:00 – 18:00</span></dd></div>
   </dl>
 
-  <!-- Form Netlify Forms ile çalışır (Netlify'da yayınlayınca otomatik aktif olur) -->
-  <form id="contact-form" class="form" name="iletisim" method="POST" action="/" data-netlify="true" netlify-honeypot="bot-field" data-reveal>
-    <input type="hidden" name="form-name" value="iletisim">
-    <p class="sr-only"><label>Bot <input name="bot-field"></label></p>
+  <!-- Form FormSubmit ile çalışır (GitHub Pages). İlk gönderimde FormSubmit onay e-postası yollar; bir kez onayla. -->
+  <form id="contact-form" class="form" name="iletisim" method="POST" action="https://formsubmit.co/zynp20071@gmail.com" data-reveal>
+    <input type="hidden" name="_next" value="https://zynp20071-ux.github.io/tesekkurler.html">
+    <input type="hidden" name="_subject" value="Portfolyo sitesinden yeni mesaj">
+    <input type="hidden" name="_template" value="table">
+    <input type="hidden" name="_captcha" value="false">
+    <p class="sr-only"><label>Bot <input type="text" name="_honey" tabindex="-1" autocomplete="off"></label></p>
     <div class="form-row">
       <div class="field">
         <label for="f-name"><span lang="tr">Ad Soyad</span><span lang="en">Full name</span></label>
